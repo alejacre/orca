@@ -3,9 +3,9 @@
 All UI work — layout, color, typography, spacing, component selection, UX behavior — must follow [`docs/STYLEGUIDE.md`](./docs/STYLEGUIDE.md). Use the tokens defined in `src/renderer/src/assets/main.css` (the canonical source) and the shadcn primitives in `src/renderer/src/components/ui/`. Don't invent new color values, font sizes, or shadow tiers when a documented one already covers the role. When STYLEGUIDE.md is silent, follow the resolution order in its final section.
 
 # Style
-## Concise/Brief Non-obviosu comments ONLY
-  * DO NOT: be verbose, explain the obvious, walk through the code ("WHY not HOW")
-  * DO: BE CONCISE. 1 LINE if possible
+## Comments
+
+Explain non-obvious intent or constraints concisely; do not narrate straightforward code.
 
 ## Lint Rules: Do Not Disable Max Lines
 
@@ -15,7 +15,9 @@ NEVER add a `max-lines` disable (`eslint-disable max-lines`, `oxlint-disable max
 
 Never use vague names like `helpers`, `utils`, `common`, `misc`, or `shared-stuff` for files, folders, or modules. They carry zero info and tend to become dumping grounds. Name files after what they _actually_ contain — prefer the concrete domain concept (e.g. `tab-group-state.ts`, `terminal-orphan-cleanup.ts`) over the generic role (`tabs-helpers.ts`, `terminal-utils.ts`). If you find yourself reaching for `helpers`, the file probably has more than one responsibility and should be split, or there's a better name hiding in the code that describes what the functions operate on.
 
-## Type Declarations: Prefer `.ts` Over `.d.ts`
+## Type Declarations
+
+Use `.ts` for ordinary exported types. Reserve `.d.ts` for ambient declarations or declaration-only package boundaries.
 
 # Considerations
 ## Worktree Safety
@@ -33,11 +35,11 @@ Orca targets macOS, Linux, and Windows. Keep all platform-dependent behavior beh
 
 ## SSH Use Case
 
-All changes must consider the SSH use case. Don't assume local-only execution.
+Changes to execution, filesystem, process, or workspace behavior must support SSH hosts; do not assume local execution.
 
 ## Folder Workspace Use Case
 
-All changes must consider folder workspaces as well as git worktrees. Don't assume every workspace is a git worktree.
+Changes to workspace behavior must support plain folders as well as Git worktrees.
 
 ## Git Binary Compatibility
 
